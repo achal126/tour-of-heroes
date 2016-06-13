@@ -1,16 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HeroDetailComponent} from './hero-detail.component';
+import {Hero} from './hero';
+import {HeroService} from './hero.service';
 
 @Component({
     selector: 'my-app',
     template: `<h1>{{title}}</h1>
-    <div *ngIf="selectedHero">
-        <h2>{{selectedHero.name}} details</h2>
-        <div><label>id: </label> {{selectedHero.id}}</div>
-        <div>
-            <label>name:</label>
-            <input [(ngModel)]="selectedHero.name" placeholder="name">
-        </div>
-    </div>
     <h2>My Heroes</h2>
     <ul class="heroes">
         <li *ngFor="let hero of heroes" (click)="onSelect(hero)" [class.selected]="hero === selectedHero">
@@ -18,6 +13,7 @@ import {Component} from '@angular/core';
           <span class="badge">{{hero.id}}</span> {{hero.name}}
         </li>
     </ul>
+    <my-hero-detail [hero]="selectedHero"></my-hero-detail>
     `,
     styles: [`
         .selected {
@@ -67,34 +63,32 @@ import {Component} from '@angular/core';
             margin-right: .8em;
             border-radius: 4px 0 0 4px;
         }`
-    ]
+    ],
+    directives: [HeroDetailComponent],
+    providers: [HeroService]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+    constructor(private heroService: HeroService){}
     title = 'Tour Of Heroes';
     selectedHero: Hero;
     //Exposes HEROES to be available for binding
-    public heroes = HEROES;
+    public heroes: Hero[];
     onSelect(hero: Hero) {
         this.selectedHero = hero;
     }
+    getHeroes() {
+        //this.heroes = this.heroService.getHeroes();
+        //this.heroService.getHeroes().then(function(heroes) {
+        //   this.heroes = heroes;
+        //});
+
+        //Can also write with a arrow function
+         this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+    }
+    //Initializes data from a service call, requires implementing OnInit
+    ngOnInit() {
+        this.getHeroes();
+    }
 }
-
-export class Hero {
-    id: number;
-    name: string;
-}
-
-var HEROES: Hero[] = [
-    { "id": 11, "name": "Mr. Nice" },
-    { "id": 12, "name": "Narco" },
-    { "id": 13, "name": "Bombasto" },
-    { "id": 14, "name": "Celeritas" },
-    { "id": 15, "name": "Magneta" },
-    { "id": 16, "name": "RubberMan" },
-    { "id": 17, "name": "Dynama" },
-    { "id": 18, "name": "Dr IQ" },
-    { "id": 19, "name": "Magma" },
-    { "id": 20, "name": "Tornado" }
-];
-

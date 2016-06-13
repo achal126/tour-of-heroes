@@ -15,4 +15,13 @@ export class HeroService {
             setTimeout(()=>resolve(HEROES), 2000) // 2 seconds
         );
     }
+
+    getHero(id){
+        return this.getHeroes().then(function(heroes){
+            function filterId(hero) {
+                return hero.id === id;
+            }
+            return heroes.filter(filterId);
+        });
+    }
 }

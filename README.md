@@ -1,5 +1,6 @@
 # tour-of-heroes
 Angular 2 Tutorial
+Left off here in the tutorial: https://angular.io/docs/ts/latest/tutorial/toh-pt5.html
 
 # Commands:
  - npm start - runs the compiler and server at the same time.

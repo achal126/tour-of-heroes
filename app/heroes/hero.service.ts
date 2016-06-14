@@ -21,7 +21,7 @@ export class HeroService {
             function filterId(hero) {
                 return hero.id === id;
             }
-            return heroes.filter(filterId);
+            return heroes.filter(filterId)[0];
         });
     }
 }

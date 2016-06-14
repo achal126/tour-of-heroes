@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from '@angular/router-deprecated';
 
-import {HeroService} from './hero.service';
+import {HeroService} from './heroes/hero.service';
 import {HeroDetailComponent} from './heroDetail/hero-detail.component';
-import {HeroesComponent} from './heroes.component';
+import {HeroesComponent} from './heroes/heroes.component';
 import {DashboardComponet} from "./dashboard/dashboard.component";
 
 
@@ -19,7 +19,8 @@ import {DashboardComponet} from "./dashboard/dashboard.component";
         <router-outlet></router-outlet>
     `,
     directives: [ROUTER_DIRECTIVES],
-    providers: [ROUTER_PROVIDERS, HeroService]
+    providers: [ROUTER_PROVIDERS, HeroService],
+    styleUrls: ['app/app.component.css']
 })
 
 @RouteConfig([
